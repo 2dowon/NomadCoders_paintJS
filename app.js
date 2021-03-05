@@ -2,10 +2,13 @@ const realCanvas = document.querySelector(".canvas");
 const canvas = document.querySelector("#jsCanvas");
 const ctx = canvas.getContext("2d");
 const colors = document.querySelectorAll(".jsColor");
+const moreColor = document.querySelector("#jsMoreColor");
+const moreColorIcon = document.querySelector(".moreColorIcon");
 const range = document.querySelector("#jsRange");
 const mode = document.querySelector("#jsMode");
 const saveBtn = document.querySelector("#jsSave");
 const uploadBtn = document.querySelector("#jsUpload");
+const clearBtn = document.querySelector("#jsClear");
 
 const INITIAL_COLOR = "#2c2c2c";
 const CANVAS_SIZE = 500;
@@ -80,6 +83,17 @@ function handleSaveClick() {
     link.click();
 }
 
+function handleClearClick() {
+    window.history.go(0);
+}
+
+function handleMoreColorClick(e) {
+    const color = e.target.value;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    moreColorIcon.style.backgroundColor = color;
+}
+
 function readInputFile(event) {
     const file = event.target.files;
     const reader = new FileReader();
@@ -123,4 +137,12 @@ if (saveBtn) {
 
 if (uploadBtn) {
     uploadBtn.addEventListener("change", readInputFile);
+}
+
+if (clearBtn) {
+    clearBtn.addEventListener("click", handleClearClick);
+}
+
+if (moreColor) {
+    moreColor.addEventListener("change", handleMoreColorClick);
 }
