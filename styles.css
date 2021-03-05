@@ -28,7 +28,8 @@ body {
     margin-bottom: 30px;
 }
 
-.controls__btns button {
+.controls__btns button,
+.controls__btns label {
     all: unset;
     cursor: pointer;
     background-color: white;
@@ -42,6 +43,15 @@ body {
     text-transform: uppercase;
     font-weight: 800;
     font-size: 12px;
+}
+
+.controls__btns label {
+    padding: 3.5px 20px;
+    margin-right: 5px;
+}
+
+.controls__btns #jsUpload {
+    display: none;
 }
   
 .controls__btns button:active {

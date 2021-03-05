@@ -1,9 +1,11 @@
+const realCanvas = document.querySelector(".canvas");
 const canvas = document.querySelector("#jsCanvas");
 const ctx = canvas.getContext("2d");
 const colors = document.querySelectorAll(".jsColor");
 const range = document.querySelector("#jsRange");
 const mode = document.querySelector("#jsMode");
 const saveBtn = document.querySelector("#jsSave");
+const uploadBtn = document.querySelector("#jsUpload");
 
 const INITIAL_COLOR = "#2c2c2c";
 const CANVAS_SIZE = 500;
@@ -77,6 +79,23 @@ function handleSaveClick() {
     link.download = "PaintJS[🎨]";
     link.click();
 }
+
+function readInputFile(event) {
+    const file = event.target.files;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+            realCanvas.style.width = `${img.width}px`;
+            realCanvas.style.height = `${img.height}px`;
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+        };
+        img.src = e.target.result;
+    };    
+    reader.readAsDataURL(file[0]);
+}
   
 
 if(canvas) {
@@ -100,4 +119,8 @@ if (mode) {
 
 if (saveBtn) {
     saveBtn.addEventListener("click", handleSaveClick);
+}
+
+if (uploadBtn) {
+    uploadBtn.addEventListener("change", readInputFile);
 }
